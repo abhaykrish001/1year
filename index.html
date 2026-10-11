@@ -130,24 +130,23 @@ body.edit [data-e]{outline:1px dashed var(--rose);outline-offset:3px;border-radi
 /* ===== EASY EDITS ===== To show photos for everyone, put image files in an "images" folder and list them here, e.g.
    const PHOTOS={g0:"images/1.jpg", g1:"images/2.jpg", hero:"images/our-best.jpg"}  (slots: g0–g5 and hero) */
 const PHOTOS={g0:"images/1.jpg", g1:"images/2.jpg", g2:"images/3.jpg", g3:"images/4.jpg", g4:"images/5.jpg", g5:"images/6.jpg", hero:"images/7.jpg"};
+const CAP=["First meet","Haircut together","strength flex After mandhi","Drive to decathlon","Fort kochi","first paid online game"];
 const LETTER=`My dearest Gopika,
 
-One year. Three hundred and sixty-five days of you in my life, and I still struggle to put into words what that means to me. [Tell her how it began, in your own words.]
+One year. Three hundred and sixty-five days of you in my life, and I still struggle to put into words what that means to me. 
 
-You came into my life and quietly made everything better. You are the person I want to tell everything to, the one who makes heavy days lighter and good days even better. [Add something she does that makes you smile.]
+You came into my life and quietly made everything better. You are the person I want to tell everything to, the one who makes heavy days lighter and good days even better.
 
-Thank you for your patience, your warmth, and the way you love me. With you I feel understood, supported and completely at home. [Add a memory only the two of you know.]
-
-I don't know exactly what the future holds, but I know I want you in it, in the small everyday moments and in the big dreams we haven't even spoken about yet. [Add a hope or a promise for the years ahead.]
-
+Thank you for your patience, your warmth, and the way you love me. With you I feel understood, supported and completely at home. 
+I don't know exactly what the future holds, but I know I want you in it, in the small everyday moments and in our unending big dreams.
 I promise to keep choosing you, to keep growing with you, and to keep making you smile.
 
 Happy 1st anniversary, my love.
 
 Forever yours,
-Abhay ❤️`;
+Abhay ❤️a`;
 const REASONS=["The way you make an ordinary day feel softer.","Your smile, which fixes my worst moods.","How safe and at home I feel with you.","The kindness you carry into everything.","How you believe in me, even when I forget to.","Your laugh, my favourite sound.","The way you really listen.","How you make small moments feel big.","Your quiet, real strength.","You are simply you, and I'm so lucky it's me you're with."];
-const TL0=[{d:"[Date]",t:"How it began",x:"[Write the moment our story started.]"},{d:"[Date]",t:"[Moment title]",x:"[Write a memory you treasure.]"},{d:"[Date]",t:"[Moment title]",x:"[Write a memory that made you smile.]"},{d:"[Date]",t:"[Moment title]",x:"[Write a moment that felt like home.]"},{d:"Today",t:"One year of us",x:"[Write how you feel today.]"}];
+const TL0=[{d:"[October 4]",t:"How it began",x:"Hi ivde entha iv velathum ano ? *ie.abae replied to your story"},{d:"[December 27]",t:"First meet",x:"Hilite mall, Anna , Tiwari , Sarvam maya,love."},{d:"[March 14]",t:"Second meet",x:"Dechathlon games, first mandhi together,love."},{d:"[June 6]",t:"Third meet",x:"Took you for first hair cut together,love."},{d:"[September 4]",t:"Fourth meet",x:"Fort kochi, photo shoot ,unforgettable rasoi, love."}];
 
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const ls={g:k=>{try{return localStorage.getItem('gk_'+k)}catch(e){return null}},s:(k,v)=>{try{localStorage.setItem('gk_'+k,v);return 1}catch(e){return 0}}};
@@ -165,7 +164,7 @@ $$('[data-k]').forEach(e=>{const v=ls.g('t_'+e.dataset.k);if(v!==null)e.textCont
 
 /* gallery */
 const g=$('#gal');
-for(let i=0;i<6;i++)g.insertAdjacentHTML('beforeend',`<figure class="pol"><div class="ph" tabindex="0" data-slot="g${i}"><span>＋<br>Add photo</span></div><figcaption data-e data-k="c${i}">[Caption]</figcaption></figure>`);
+for(let i=0;i<6;i++)g.insertAdjacentHTML('beforeend',`<figure class="pol"><div class="ph" tabindex="0" data-slot="g${i}"><span>＋<br>Add photo</span></div><figcaption data-e data-k="c${i}">${CAP[i]||"[Caption]"}</figcaption>`);
 const mem={};let cur=null;
 function setSlot(el){const k=el.dataset.slot,src=mem[k]||ls.g('p_'+k)||PHOTOS[k];el.querySelector('img')?.remove();const sp=el.querySelector('span');if(src){const im=new Image();im.src=src;im.alt='Our photo';el.append(im);sp.hidden=true}else sp.hidden=false}
 $$('.ph').forEach(el=>{setSlot(el);const go=()=>{cur=el;const im=el.querySelector('img');if(im){$('#lbi').src=im.src;$('#lb').classList.add('on')}else $('#fi').click()};el.onclick=go;el.onkeydown=e=>{if(e.key==='Enter')go()}});
@@ -189,12 +188,12 @@ function cnt(){const n=$$('.rc.open').length;$('#cnt').textContent=n<10?`${n} of
 /* photo reveal, final, question */
 $('#veil').onclick=()=>{$('#veil').classList.add('gone');burst(innerWidth/2,innerHeight/2,24)};
 $('#more').onclick=()=>{$('#more').hidden=true;const b=$('#finBox');b.hidden=false;setTimeout(()=>$$('#finBox .rv').forEach(e=>e.classList.add('in')),60);burst(innerWidth/2,innerHeight/2,18)};
-const NO=["Are you sure? 🥺","Think again, my love…","Gopika… 🥹","That button is broken. Try the other one 😌","Abhay is making puppy eyes right now","Okay, this button is retiring 😂"];let n=0;
+const NO=["Are you sure? 🥺","Think again, my love…","shuttumaniiii🥹","This button is broken. Try the other one 😌","Abhay is making puppy eyes right now","Okay, this button is retiring 😂"];let n=0;
 const no=$('#no'),yes=$('#yes');
 const dodge=()=>{no.style.transform=`translate(${(Math.random()-.5)*110}px,${(Math.random()-.5)*50}px)`};
 no.onclick=()=>{n++;yes.style.transform=`scale(${Math.min(1+n*.12,1.6)})`;yes.style.margin=`0 ${n*4}px`;no.textContent=NO[Math.min(n-1,NO.length-1)];if(n>=3)dodge();if(n>NO.length)no.hidden=true};
 no.onmouseenter=()=>{if(n>=3)dodge()};
-yes.onclick=()=>{const r=yes.getBoundingClientRect();burst(r.left+r.width/2,r.top,46);no.hidden=true;yes.disabled=true;yes.textContent='Forever, my love ❤️';yes.style.transform='none';$('#yay').hidden=false;$('#yay').classList.add('rv','in')};
+yes.onclick=()=>{const r=yes.getBoundingClientRect();burst(r.left+r.width/2,r.top,46);no.hidden=true;yes.disabled=true;yes.textContent='Forever, my love my shuttumani ❤️';yes.style.transform='none';$('#yay').hidden=false;$('#yay').classList.add('rv','in')};
 function burst(x,y,k){for(let i=0;i<k;i++){const h=document.createElement('div'),a=Math.random()*6.28,d=80+Math.random()*180;h.className='pop';h.textContent=Math.random()<.2?'✦':'♥';h.style.cssText=`left:${x}px;top:${y}px;font-size:${14+Math.random()*20}px;--dx:${Math.cos(a)*d}px;--dy:${Math.sin(a)*d-60}px`;document.body.append(h);h.onanimationend=()=>h.remove()}}
 
 /* sparkles + hearts */
